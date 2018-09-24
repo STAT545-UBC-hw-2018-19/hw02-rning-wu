@@ -1,0 +1,44 @@
+---
+title: "Gapminder Exploration"
+author: "ray"
+date: "September 24, 2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+First, we load the `gapminder` and `tidyverse` packages: 
+
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+
+Next, we will "smell test" the data: 
+
+Is it a data.frame, a matrix, a vector, a list?
+```{r}
+typeof(gapminder)
+```
+
+As we can see, `gapminder` is stored in a list. 
+
+What is its class?
+
+```{r}
+class(gapminder)
+```
+
+`gapminder` belongs to the classes `tibble` and `data.frame`. 
+
+How many variables/columns?
+```{r}
+head(gapminder)
+```
+
+
+How many rows/observations?
+Can you get these facts about "extent" or "size" in more than one way? Can you imagine different functions being useful in different contexts?
+What data type is each variable?
