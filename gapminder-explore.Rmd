@@ -13,14 +13,11 @@ First, we load the `gapminder` and `tidyverse` packages:
 library(gapminder)
 library(tidyverse)
 ```
-
-Next, we will "smell test" the data: 
-
+## Smell Test: 
 Is it a data.frame, a matrix, a vector, a list?
 ```{r}
 typeof(gapminder)
 ```
-
 As we can see, `gapminder` is stored in a list. 
 
 What is its class?
@@ -55,11 +52,11 @@ What data type is each variable?
 ```{r}
 str(gapminder)
 ```
-
+## Exploring individual variables
 Pick at least one categorical variable and at least one quantitative variable to explore.
 
 categorical variable selected: continent
-quantitative variable selected: pop
+quantitative variable selected: lifeExp
 
 What are possible values (or range, whichever is appropriate) of each variable?
 
@@ -67,13 +64,23 @@ What are possible values (or range, whichever is appropriate) of each variable?
 summary(gapminder$continent)
 ```
 
+The same information, in bar chart form: 
 ```{r}
-ggplot(gapminder, aes(continent)) + geom_bar()
+ggplot(gapminder, aes(continent)) + geom_bar(fill = 'dark green')
 ```
 ```{r}
-ggplot(gapminder, aes(gdpPercap)) + geom_density(bw = 0.05, fill = "orange") + scale_x_log10()
+summary(gapminder$lifeExp)
 ```
 
+When we have a continuous variable we get more information from a density plot vs. the summary statistics. 
+
+```{r}
+ggplot(gapminder, aes(lifeExp)) + geom_density(bw = 0.01, fill = "orange") + scale_x_log10()
+```
+
+As expected, we have a large group of countries in the 70s for life expectancy, presumably the Western (i.e. developed) countries. 
+
+A fancier plot, illustrating the clustering of countries' life expectancy and gdp per capita by the continent. 
 ```{r}
 plot = ggplot(gapminder, aes(gdpPercap, lifeExp)) + scale_x_log10()
 plot + geom_point(aes(colour = factor(continent)), size = 2)
@@ -81,28 +88,40 @@ plot + geom_point(aes(colour = factor(continent)), size = 2)
 ```
 
 
-
 What values are typical? What's the spread? What's the distribution? Etc., tailored to the variable at hand.
 Feel free to use summary stats, tables, figures. We're NOT expecting high production value (yet).
 
 Typical values of continent are the five continents: Africa, Americas, Asia, Europe, and Oceania. Note that North, Central, and South America are all mixed into one group. 
 
+As expected, typical values of the life expectancy range from 20s to 80s. A large proportion of countries range in the 70s and higher. 
+
+
+Life expectancy distribution according to continent: 
+
 ```{r}
-a = ggplot(gapminder, aes(continent, pop)) + scale_y_log10()
+a = ggplot(gapminder, aes(continent, lifeExp))
 a+geom_violin()+geom_jitter(alpha=0.2)
 ```
+## Use filter(), select() and %>%
 
+And the following is a plot of Germany's GDP per capital and life expectancy over time. 
 ```{r}
 gapminder %>% 
   filter(country == 'Germany') %>% 
+  select(gdpPercap, lifeExp) %>% 
   ggplot(aes(gdpPercap, lifeExp)) + geom_point() + geom_line(arrow=arrow())
 ```
 
 Evaluate this code and describe the result. Presumably the analyst's intent was to get the data for Rwanda and Afghanistan. Did they succeed? Why or why not? If not, what is the correct way to do this?
 
 code: `filter(gapminder, country == c("Rwanda", "Afghanistan"))`
+(Unfortunately I can't put it in an `R` chunk because then knit will have a problem with it)
+```{r}
+filter(gapminder, country == c("Rwanda", "Afghanistan"))
+```
 
-The problem with this code is that none of the country entires are a list containing "Rwanda" then "Afghanistan" in that order. To filter to Rwanda and Afghanistan, we use the following code: 
+
+The problem with this code is that we do not get every row in the dataset. To get it, we use the following code: 
 
 ```{r}
 filter(gapminder, country %in% c("Rwanda", "Afghanistan"))
