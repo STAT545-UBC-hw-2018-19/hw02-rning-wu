@@ -70,7 +70,8 @@ summary(gapminder$continent)
 
 The same information, in bar chart form: 
 ```{r}
-ggplot(gapminder, aes(continent)) + geom_bar(fill = 'dark green')
+ggplot(gapminder, aes(continent)) + 
+  geom_bar(fill = 'dark green')
 ```
 ```{r}
 summary(gapminder$lifeExp)
@@ -79,7 +80,9 @@ summary(gapminder$lifeExp)
 When we have a continuous variable we get more information from a density plot vs. the summary statistics. 
 
 ```{r}
-ggplot(gapminder, aes(lifeExp)) + geom_density(bw = 0.01, fill = "orange") + scale_x_log10()
+ggplot(gapminder, aes(lifeExp)) + 
+  geom_density(bw = 0.01, fill = "orange") + 
+  scale_x_log10()
 ```
 
 As expected, we have a large group of countries in the 70s for life expectancy, presumably the Western (i.e. developed) countries. 
@@ -87,7 +90,8 @@ As expected, we have a large group of countries in the 70s for life expectancy, 
 A fancier plot, illustrating the clustering of countries' life expectancy and gdp per capita by the continent. 
 ```{r}
 plot = ggplot(gapminder, aes(gdpPercap, lifeExp)) + scale_x_log10()
-plot + geom_point(aes(colour = factor(continent)), size = 2)
+plot + 
+  geom_point(aes(colour = factor(continent)), size = 2)
 
 ```
 
@@ -104,7 +108,9 @@ Life expectancy distribution according to continent:
 
 ```{r}
 a = ggplot(gapminder, aes(continent, lifeExp))
-a+geom_violin()+geom_jitter(alpha=0.2)
+a + 
+  geom_violin() + 
+  geom_jitter(alpha=0.2)
 ```
 
 ## Use of filter, select, and %>%
@@ -114,7 +120,9 @@ And the following is a plot of Sudan's GDP per capital and life expectancy over 
 gapminder %>% 
   filter(country == 'Sudan') %>% 
   select(gdpPercap, lifeExp) %>% 
-  ggplot(aes(gdpPercap, lifeExp)) + geom_point() + geom_path(arrow=arrow())
+  ggplot(aes(gdpPercap, lifeExp)) + 
+    geom_point() + 
+    geom_path(arrow=arrow())
 ```
 
 
