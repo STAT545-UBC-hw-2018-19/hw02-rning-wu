@@ -2,4 +2,8 @@
 
 Author: Ray Wu
 
-This is the link to my main file: [gapminder-explore](https://github.com/STAT545-UBC-students/hw02-rning-wu/blob/master/gapminder-explore.md)
+This repository contains two files: 
+
+- My main file for viewing: [gapminder-explore](https://github.com/STAT545-UBC-students/hw02-rning-wu/blob/master/gapminder-explore.md)
+
+- The Rmd source: [gapminder-explore](https://github.com/STAT545-UBC-students/hw02-rning-wu/blob/master/gapminder-explore.Rmd)
