@@ -7,6 +7,10 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Author: Ray Wu
+
+## Bringing in Rectangular data
+
 First, we load the `gapminder` and `tidyverse` packages: 
 
 ```{r}
@@ -52,7 +56,7 @@ What data type is each variable?
 ```{r}
 str(gapminder)
 ```
-## Exploring individual variables
+## Exploring individual & Exploring various plot types
 Pick at least one categorical variable and at least one quantitative variable to explore.
 
 categorical variable selected: continent

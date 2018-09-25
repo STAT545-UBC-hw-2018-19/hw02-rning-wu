@@ -1,6 +1,11 @@
 Gapminder Exploration
 ================
 
+Author: Ray Wu
+
+Bringing in Rectangular data
+----------------------------
+
 First, we load the `gapminder` and `tidyverse` packages:
 
 ``` r
@@ -91,8 +96,8 @@ str(gapminder)
     ##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
     ##  $ gdpPercap: num  779 821 853 836 740 ...
 
-Exploring individual variables
-------------------------------
+Exploring individual & Exploring various plot types
+---------------------------------------------------
 
 Pick at least one categorical variable and at least one quantitative variable to explore.
 
