@@ -1,7 +1,5 @@
 ---
 title: "Gapminder Exploration"
-author: "ray"
-date: "September 24, 2018"
 output: github_document
 ---
 
@@ -35,10 +33,78 @@ class(gapminder)
 
 How many variables/columns?
 ```{r}
-head(gapminder)
+ncol(gapminder)
+```
+`gapminder` has 6 columns. 
+
+How many rows/observations?
+```{r}
+nrow(gapminder)
+```
+There are 1704 observations in `gapminder`
+
+Can you get these facts about "extent" or "size" in more than one way? Can you imagine different functions being useful in different contexts?
+
+```{r}
+names(gapminder)
+```
+This can also be used to find the number of columns in a dataset
+
+What data type is each variable?
+
+```{r}
+str(gapminder)
+```
+
+Pick at least one categorical variable and at least one quantitative variable to explore.
+
+categorical variable selected: continent
+quantitative variable selected: pop
+
+What are possible values (or range, whichever is appropriate) of each variable?
+
+```{r}
+summary(gapminder$continent)
+```
+
+```{r}
+ggplot(gapminder, aes(continent)) + geom_bar()
+```
+```{r}
+ggplot(gapminder, aes(gdpPercap)) + geom_density(bw = 0.05, fill = "orange") + scale_x_log10()
+```
+
+```{r}
+plot = ggplot(gapminder, aes(gdpPercap, lifeExp)) + scale_x_log10()
+plot + geom_point(aes(colour = factor(continent)), size = 2)
+
 ```
 
 
-How many rows/observations?
-Can you get these facts about "extent" or "size" in more than one way? Can you imagine different functions being useful in different contexts?
-What data type is each variable?
+
+What values are typical? What's the spread? What's the distribution? Etc., tailored to the variable at hand.
+Feel free to use summary stats, tables, figures. We're NOT expecting high production value (yet).
+
+Typical values of continent are the five continents: Africa, Americas, Asia, Europe, and Oceania. Note that North, Central, and South America are all mixed into one group. 
+
+```{r}
+a = ggplot(gapminder, aes(continent, pop)) + scale_y_log10()
+a+geom_violin()+geom_jitter(alpha=0.2)
+```
+
+```{r}
+gapminder %>% 
+  filter(country == 'Germany') %>% 
+  ggplot(aes(gdpPercap, lifeExp)) + geom_point() + geom_line(arrow=arrow())
+```
+
+Evaluate this code and describe the result. Presumably the analyst's intent was to get the data for Rwanda and Afghanistan. Did they succeed? Why or why not? If not, what is the correct way to do this?
+
+code: `filter(gapminder, country == c("Rwanda", "Afghanistan"))`
+
+The problem with this code is that none of the country entires are a list containing "Rwanda" then "Afghanistan" in that order. To filter to Rwanda and Afghanistan, we use the following code: 
+
+```{r}
+filter(gapminder, country %in% c("Rwanda", "Afghanistan"))
+```
+
